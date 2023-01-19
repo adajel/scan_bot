@@ -1,15 +1,8 @@
 from slack_sdk.web import WebClient
 from calendar_events import CalendarEvents
 
-from dotenv import load_dotenv
-
 import os
 import sys
-
-# get tokens
-load_dotenv()
-
-SLACK_BOT_TOKEN = os.environ['SLACK_BOT_TOKEN']
 
 if __name__ == '__main__':
 
