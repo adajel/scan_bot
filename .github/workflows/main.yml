@@ -4,7 +4,7 @@ name: scan_bot
 on: [workflow_dispatch]
 
 env:
-    SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }}
+    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
 jobs:
   run-scan-bot:
