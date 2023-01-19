@@ -9,6 +9,13 @@ jobs:
 
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      GOOGLE_API_TOKEN: ${{ secrets.GOOGLE_API_TOKEN }}
+      GOOGLE_API_REFRESH_TOKEN: ${{ secrets.GOOGLE_API_REFRESH_TOKEN }}
+      GOOGLE_API_TOKEN_URI: ${{ secrets.GOOGLE_API_TOKEN_URI }}
+      GOOGLE_API_CLIENT_ID: ${{ secrets.GOOGLE_API_CLIENT_ID }}
+      GOOGLE_API_CLIENT_SECRET: ${{ secrets.GOOGLE_API_CLIENT_SECRET }}
+      GOOGLE_API_SCOPES: ${{ secrets.GOOGLE_API_SCOPES }}
+      GOOGLE_API_EXPIRY: ${{ secrets.GOOGLE_API_EXPIRY }}
 
     steps:
       - uses: actions/checkout@v2
