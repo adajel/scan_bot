@@ -2,6 +2,7 @@ from slack_sdk.web import WebClient
 from calendar_events import CalendarEvents
 
 import os
+import sys
 
 if __name__ == '__main__':
 
