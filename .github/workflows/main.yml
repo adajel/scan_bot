@@ -3,9 +3,6 @@ name: scan_bot
 
 on: [workflow_dispatch]
 
-env:
-    SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }}
-
 jobs:
   run-scan-bot:
     runs-on: ubuntu-20.04
@@ -21,6 +18,9 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           pip freeze
+
+        env:
+            SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: run birtday bot daily 
         run: |
