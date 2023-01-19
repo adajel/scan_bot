@@ -31,9 +31,12 @@ from dateutil.relativedelta import relativedelta
 
 import re
 import os
+import sys
 
 # Specify calendar to SCAN google calendar
 calendar_id = 'simula.no_9ga7rtt02pjcntlok16886rpjk@group.calendar.google.com'
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 class CalendarEvents:
 
@@ -44,32 +47,15 @@ class CalendarEvents:
         # The file token.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        token = os.environ['GOOGLE_API_TOKEN']
-        refresh_token = os.environ['GOOGLE_API_REFRESH_TOKEN']
-        token_uri = os.environ['GOOGLE_API_TOKEN_URI']
-        client_id = os.environ['GOOGLE_API_CLIENT_ID']
-        client_secret = os.environ['GOOGLE_API_CLIENT_SECRET']
-        scopes = os.environ['GOOGLE_API_SCOPES']
-        expiry = os.environ['GOOGLE_API_EXPIRY']
-
-        # set authorized user info
-        user_info = {"token": token,
-                     "refresh_token": refresh_token,
-                     "token_uri": token_uri,
-                     "client_id": client_id,
-                     "client_secret": client_secret,
-                     "scopes": scopes,
-                     "expiry": expiry}
-
-        self.creds = Credentials.from_authorized_user_file('token.json')#, SCOPES)
-
+        if os.path.exists('token.json'):
+            self.creds = Credentials.from_authorized_user_file('token.json')
         # If there are no (valid) credentials available, let the user log in.
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
                 self.creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json', SCOPES)
+                    'credentials.json')
                 self.creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
@@ -89,8 +75,11 @@ class CalendarEvents:
             today = datetime.datetime.today();
             start = (datetime.datetime(today.year, today.month, today.day, 00, 00)).isoformat() + 'Z'
             # end tomorrow at 00:00
-            tomorrow = today + datetime.timedelta(days=1)
-            end =  (datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 00, 00)).isoformat() + 'Z'
+            # TODO
+            #tomorrow = today + datetime.timedelta(days=1)
+            #end =  (datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 00, 00)).isoformat() + 'Z'
+
+            end = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
 
             # get events from today
             events_result = service.events().list(calendarId=calendar_id,
@@ -125,11 +114,11 @@ class CalendarEvents:
 
             # set range for the next 12 months
             now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-            inAmonth = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
+            inAyear = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
 
             # call API
             events_result = service.events().list(calendarId=calendar_id,
-                    timeMin=now, timeMax=inAmonth,
+                    timeMin=now, timeMax=inAyear,
                     singleEvents=True, orderBy='startTime').execute()
             events = events_result.get('items', [])
 
