@@ -1,8 +1,8 @@
 from slack_sdk.web import WebClient
 #from calendar_events import CalendarEvents
 
-import os
-import sys
+#import os
+#import sys
 
 if __name__ == '__main__':
 
@@ -19,7 +19,8 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # we need to pass the 'Bot User OAuth Token'
-    slack_token = os.environ.get('SLACK_BOT_TOKEN')
+    #slack_token = os.environ('SLACK_BOT_TOKEN')
+    slack_token = {{ secret.SLACK_BOT_TOKEN }}
 
     # creating an instance of the Webclient class
     client = WebClient(token=slack_token)
