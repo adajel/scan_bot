@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     # we need to pass the 'Bot User OAuth Token'
     #slack_token = os.environ('SLACK_BOT_TOKEN')
-    slack_token = {{ secret.SLACK_BOT_TOKEN }}
+    slack_token = {{ secrets.SLACK_BOT_TOKEN }}
 
     # creating an instance of the Webclient class
     client = WebClient(token=slack_token)
