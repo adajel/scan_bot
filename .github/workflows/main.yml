@@ -6,8 +6,6 @@ on: [workflow_dispatch]
 jobs:
   run-scan-bot:
     runs-on: ubuntu-20.04
-    env: 
-      SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -24,6 +22,6 @@ jobs:
         run: |
           sh run_daily.sh
 
-          #with:
-          #  user: __token__
-          #  password: ${{ secrets.pypi_password }}
+          with:
+            user: __token__
+            SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }}
