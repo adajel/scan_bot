@@ -52,6 +52,8 @@ class CalendarEvents:
         self.creds = Credentials.from_authorized_user_info(self.token)
 
         """
+        # TODO: How to this without json files? seems like
+        # InstalledAppFlow has no function from_client_secrets_info()..
         # If there are no (valid) credentials available, let the user log in.
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
