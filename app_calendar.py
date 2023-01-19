@@ -39,10 +39,9 @@ class Message:
     def _get_events_block(self):
         #task_checkmark = self._get_checkmark(self.reaction_task_completed)
 
-        # TODO
-        #C = CalendarEvents()
-        #calendar_events = C.get_events()
-        calendar_events = "test calendar_events"
+        # get calendar events to post
+        C = CalendarEvents()
+        calendar_events = C.get_events()
 
         text = (
             calendar_events

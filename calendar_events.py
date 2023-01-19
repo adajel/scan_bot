@@ -30,10 +30,9 @@ from datetime import datetime as dt
 from dateutil.relativedelta import relativedelta
 
 import re
+import os
 
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
-# Specify calendar is form SCAN calendar
+# Specify calendar to SCAN google calendar
 calendar_id = 'simula.no_9ga7rtt02pjcntlok16886rpjk@group.calendar.google.com'
 
 class CalendarEvents:
@@ -45,8 +44,25 @@ class CalendarEvents:
         # The file token.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists('token.json'):
-            self.creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        token = os.environ['GOOGLE_API_TOKEN']
+        refresh_token = os.environ['GOOGLE_API_REFRESH_TOKEN']
+        token_uri = os.environ['GOOGLE_API_TOKEN_URI']
+        client_id = os.environ['GOOGLE_API_CLIENT_ID']
+        client_secret = os.environ['GOOGLE_API_CLIENT_SECRET']
+        scopes = os.environ['GOOGLE_API_SCOPES']
+        expiry = os.environ['GOOGLE_API_EXPIRY']
+
+        # set authorized user info
+        user_info = {"token": token,
+                     "refresh_token": refresh_token,
+                     "token_uri": token_uri,
+                     "client_id": client_id,
+                     "client_secret": client_secret,
+                     "scopes": scopes,
+                     "expiry": expiry}
+
+        self.creds = Credentials.from_authorized_user_file('token.json')#, SCOPES)
+
         # If there are no (valid) credentials available, let the user log in.
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
