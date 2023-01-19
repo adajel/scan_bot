@@ -42,8 +42,7 @@ class Message:
         # TODO
         #C = CalendarEvents()
         #calendar_events = C.get_events()
-        birthdays = "test"
-
+        calendar_events = "test calendar_events"
 
         text = (
             calendar_events
