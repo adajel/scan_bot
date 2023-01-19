@@ -22,6 +22,10 @@ jobs:
           pip install -r requirements.txt
           pip freeze
 
-      - name: run birtday bot daily 
+      - name: run birthday bot daily 
         run: |
           sh run_daily.sh
+
+      - name: run calendar bot biweekly
+        run: |
+          sh run_biweekly.sh
