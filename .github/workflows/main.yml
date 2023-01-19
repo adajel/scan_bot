@@ -1,11 +1,7 @@
 # Run calendar bot (Monday at 08:00 every other week) and birthday_bot (every day at 08:00)
 name: scan_bot
 
-on:
-  schedule:
-    - cron: '0 8 1-7,15-21 * 1'
-    - cron: '0 8 * * *'
-    - cron: '* * * * *'
+on: [workflow_dispatch]    
 
 jobs:
   run-scan-bot:
@@ -26,10 +22,9 @@ jobs:
           pip freeze
 
       - name: run birtday bot daily 
-        if: github.event.schedule == '* * * * *'
         run: |
           sh run_daily.sh
-
+          
         with:
           user: __token__
           password: ${{ secrets.pypi_password }}
