@@ -2,7 +2,7 @@
 name: scan_bot
 
 on: [workflow_dispatch]
-or:
+
 on:
   schedule:
     - cron: '0 8 1-7,15-21 * 1'
