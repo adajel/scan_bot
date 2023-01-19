@@ -1,5 +1,5 @@
 from slack_sdk.web import WebClient
-from calendar_events import CalendarEvents
+#from calendar_events import CalendarEvents
 
 import os
 import sys
