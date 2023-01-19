@@ -11,7 +11,7 @@ class Message:
         "text": {
             "type": "mrkdwn",
             "text": (
-            "Upcoming conferences and events from the SCAN calendar: \n\n"
+            "Upcoming conferences, visits and other events from the SCAN calendar: \n\n"
             ),
         },
     }
@@ -47,7 +47,7 @@ class Message:
             calendar_events
         )
         information = (
-            "Add your upcoming conferences and other events via the <https://tinyurl.com/5n8zn827|SCAN google calendar>"
+            "Add your conferences and events via the <https://tinyurl.com/5n8zn827|SCAN google calendar>"
         )
         return self._get_task_block(text, information)
 
