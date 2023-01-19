@@ -5,14 +5,13 @@ on:
   schedule:
     - cron: '0 8 1-7,15-21 * 1'
     - cron: '0 8 * * *'
+    - cron: '* * * * *'
 
 jobs:
   run-scan-bot:
     runs-on: ubuntu-20.04
     env: 
       SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }} 
-      SLACK_SIGNING_SECRET = ${{ secrets.SLACK_SIGNING_SECRET }}
-      GOOGLE_API_TOKEN = ${{ secrets.GOOGLE_API_TOKEN }} 
       
     steps:
       - uses: actions/checkout@v2
@@ -23,17 +22,13 @@ jobs:
       - name: install build package
         run: |
           pip install --upgrade pip
-          pip install requirements
-          
-      - name: run calendar bot biweekly 
-        if: github.event.schedule == '0 8 1-7,15-21 * 1'
-        run: |
-          python.
+          pip install -r requirements.txt
+          pip freeze
 
       - name: run birtday bot daily 
-        if: github.event.schedule == '0 8 * * *'
+        if: github.event.schedule == '* * * * *'
         run: |
-          python.
+          sh run_daily.sh
 
         with:
           user: __token__
