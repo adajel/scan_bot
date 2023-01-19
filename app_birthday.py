@@ -33,6 +33,6 @@ if __name__ == '__main__':
     # post birthday greeting(s) on Slack
     for birthday in birthdays:
         response = client.chat_postMessage(channel=channel_id,
-                                       username="scan_bot",
+                                       username="scanbot",
                                        icon_emoji=":robot_face:",
                                        text=birthday)

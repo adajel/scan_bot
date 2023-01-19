@@ -26,7 +26,7 @@ class Message:
 
     def __init__(self, channel):
         self.channel = channel
-        self.username = "scan_bot"
+        self.username = "scanbot"
         self.icon_emoji = ":calendar:"
         self.reaction_task_completed = False
         self.pin_task_completed = False

@@ -63,11 +63,11 @@ class CalendarEvents:
 
     def get_birthdays(self):
 
+        # summary of calendar events
+        summary = []
+
         try:
             service = build('calendar', 'v3', credentials=self.creds)
-
-            # summary of calendar events
-            summary = []
 
             # start today at 00:00
             today = datetime.datetime.today();
@@ -99,13 +99,13 @@ class CalendarEvents:
 
     def get_events(self):
 
+        # summary of calendar events
+        summary = ""
+        # event counter
+        i = 0
+
         try:
             service = build('calendar', 'v3', credentials=self.creds)
-
-            # summary of calendar events
-            summary = ""
-            # event counter
-            i = 0
 
             # set range for the next 12 months
             now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
@@ -142,8 +142,8 @@ class CalendarEvents:
                     summary += stime + ': ' + event['summary'] + '\n'
                     i += 1
 
-                # only include up to 10 events
-                if i > 10:
+                # include maximum 10 events
+                if i >= 10:
                     return summary
 
             return summary
