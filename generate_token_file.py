@@ -20,8 +20,9 @@ token = {"token": token,
 
 # serializing json
 json_object = json.dumps(token, indent=7)
+
+print(json_object)
  
-# Writing to sample.json
 with open("token.json", "w") as outfile:
     outfile.write(json_object)
 

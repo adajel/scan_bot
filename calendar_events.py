@@ -43,12 +43,15 @@ class CalendarEvents:
     def __init__(self):
         """ setup Google Calendar API. """
 
+        self.generate_token_file()
+
         self.creds = None
         # The file token.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists('token.json'):
-            self.creds = Credentials.from_authorized_user_file('token.json')
+        self.creds = Credentials.from_authorized_user_info(self.token)
+
+        """
         # If there are no (valid) credentials available, let the user log in.
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
@@ -60,6 +63,30 @@ class CalendarEvents:
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
                 token.write(self.creds.to_json())
+        """
+
+        return
+
+    def generate_token_file(self):
+        token = os.environ['GOOGLE_API_TOKEN']
+        refresh_token = os.environ['GOOGLE_API_REFRESH_TOKEN']
+        token_uri = os.environ['GOOGLE_API_TOKEN_URI']
+        client_id = os.environ['GOOGLE_API_CLIENT_ID']
+        client_secret = os.environ['GOOGLE_API_CLIENT_SECRET']
+        scopes = os.environ['GOOGLE_API_SCOPES']
+        expiry = os.environ['GOOGLE_API_EXPIRY']
+
+        # data to be written
+        token = {"token": token,
+                 "refresh_token": refresh_token,
+                 "token_uri": token_uri,
+                 "client_id": client_id,
+                 "client_secret": client_secret,
+                 "scopes": [scopes],
+                 "expiry": expiry}
+
+        # serializing json
+        self.token = token
 
         return
 
