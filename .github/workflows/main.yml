@@ -3,12 +3,12 @@ name: scan_bot
 
 on: [workflow_dispatch]
 
-env:
-    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
 jobs:
   run-scan-bot:
     runs-on: ubuntu-20.04
+
+    env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
