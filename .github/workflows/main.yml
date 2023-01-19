@@ -1,14 +1,13 @@
 # Run calendar bot (Monday at 08:00 every other week) and birthday_bot (every day at 08:00)
 name: scan_bot
 
-on: [workflow_dispatch]    
+on: [workflow_dispatch]
 
 jobs:
   run-scan-bot:
     runs-on: ubuntu-20.04
     env: 
-      SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }} 
-      
+      SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -24,7 +23,7 @@ jobs:
       - name: run birtday bot daily 
         run: |
           sh run_daily.sh
-          
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
+
+          #with:
+          #  user: __token__
+          #  password: ${{ secrets.pypi_password }}
