@@ -1,18 +1,3 @@
-# Copyright 2018 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# [START calendar_quickstart]
 from __future__ import print_function
 
 import datetime
@@ -41,12 +26,11 @@ class CalendarEvents:
     def __init__(self):
         """ setup Google Calendar API. """
 
+        # generate directory with tokens etc for authorization
         self.generate_token_file()
 
+        # get credentials from google API
         self.creds = None
-        # The file token.json stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
         self.creds = Credentials.from_authorized_user_info(self.token)
 
         """
@@ -68,6 +52,8 @@ class CalendarEvents:
         return
 
     def generate_token_file(self):
+
+        # get environmental variables
         token = os.environ['GOOGLE_API_TOKEN']
         refresh_token = os.environ['GOOGLE_API_REFRESH_TOKEN']
         token_uri = os.environ['GOOGLE_API_TOKEN_URI']
@@ -137,21 +123,23 @@ class CalendarEvents:
             service = build('calendar', 'v3', credentials=self.creds)
 
             # set range for the next 12 months
-            now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-            inAyear = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
+            start = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+            end = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
 
             # call API
             events_result = service.events().list(calendarId=calendar_id,
-                    timeMin=now, timeMax=inAyear,
+                    timeMin=start, timeMax=end,
                     singleEvents=True, orderBy='startTime').execute()
             events = events_result.get('items', [])
 
+            # if no events found, return
             if not events:
-                summary += 'No upcoming events found.'
+                summary += 'No events found. Please help populate the SCAN calendar :face_with_cowboy_hat:'
                 return
 
             # Prints the start and name of the next 10 events
             for event in events:
+
                 start = event['start'].get('dateTime', event['start'].get('date'))
                 # gives date format '26 Dec'
                 tmfmt = '%d.%m'
@@ -171,9 +159,13 @@ class CalendarEvents:
                     summary += stime + ': ' + event['summary'] + '\n'
                     i += 1
 
-                # include maximum 10 events
+                # if all events found are OiO, seminars, dept. meetings or birthdays
                 if i >= 10:
                     return summary
+
+            # if the only events 
+            if len(summary) == 0:
+                summary += 'No events found. Please help populate the SCAN calendar :face_with_cowboy_hat:'
 
             return summary
 
