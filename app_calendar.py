@@ -1,14 +1,7 @@
 from slack_sdk.web import WebClient
 from calendar_events import CalendarEvents
 
-from dotenv import load_dotenv
-
 import os
-
-# get tokens
-load_dotenv()
-
-SLACK_BOT_TOKEN = os.environ['SLACK_BOT_TOKEN']
 
 class Message:
     """Constructs the text to be displayed"""
@@ -46,8 +39,11 @@ class Message:
     def _get_events_block(self):
         #task_checkmark = self._get_checkmark(self.reaction_task_completed)
 
-        C = CalendarEvents()
-        calendar_events = C.get_events()
+        # TODO
+        #C = CalendarEvents()
+        #calendar_events = C.get_events()
+        birthdays = "test"
+
 
         text = (
             calendar_events
@@ -72,7 +68,7 @@ if __name__ == '__main__':
     channel_id="C04KGDHATRA"
 
     # we need to pass the 'Bot User OAuth Token'
-    slack_token = os.environ.get('SLACK_BOT_TOKEN')
+    slack_token = os.environ['SLACK_BOT_TOKEN']
 
     # creating an instance of the Webclient class
     client = WebClient(token=slack_token)

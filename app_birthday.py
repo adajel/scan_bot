@@ -1,14 +1,14 @@
 from slack_sdk.web import WebClient
-#from calendar_events import CalendarEvents
+from calendar_events import CalendarEvents
 
 import os
-#import sys
 
 if __name__ == '__main__':
 
     # set channel ID
     channel_id="C04KGDHATRA"
 
+    # TODO
     # get birthdays from SCAN calendar
     #C = CalendarEvents()
     #birthdays = C.get_birthdays()
@@ -19,7 +19,6 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # we need to pass the 'Bot User OAuth Token'
-    #slack_token = os.environ('SLACK_BOT_TOKEN')
     slack_token = os.environ['SLACK_BOT_TOKEN']
 
     # creating an instance of the Webclient class
