@@ -35,8 +35,6 @@ import sys
 
 # Specify calendar to SCAN google calendar
 calendar_id = 'simula.no_9ga7rtt02pjcntlok16886rpjk@group.calendar.google.com'
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 class CalendarEvents:
 
@@ -104,11 +102,8 @@ class CalendarEvents:
             today = datetime.datetime.today();
             start = (datetime.datetime(today.year, today.month, today.day, 00, 00)).isoformat() + 'Z'
             # end tomorrow at 00:00
-            # TODO
-            #tomorrow = today + datetime.timedelta(days=1)
-            #end =  (datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 00, 00)).isoformat() + 'Z'
-
-            end = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
+            tomorrow = today + datetime.timedelta(days=1)
+            end =  (datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 00, 00)).isoformat() + 'Z'
 
             # get events from today
             events_result = service.events().list(calendarId=calendar_id,
