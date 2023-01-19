@@ -1,11 +1,14 @@
 # Run calendar bot (Monday at 08:00 every other week) and birthday_bot (every day at 08:00)
 name: scan_bot
-
 on: 
-  workflow_dispatch:
   schedule:
-    - cron: '0 8 1-7,15-21 * 1'
-    - cron: '30 8 * * *'
+  - cron: '*/5 * * * *'
+
+#on: 
+#  workflow_dispatch:
+#  schedule:
+#   - cron: '0 8 1-7,15-21 * 1'
+#    - cron: '30 8 * * *'
 
 jobs:
   run-scan-bot:
@@ -34,11 +37,11 @@ jobs:
           pip freeze
 
       - name: run birthday bot daily 
-        if: github.event.schedule == '30 8 * * *'
+        #if: github.event.schedule == '30 8 * * *'
         run: |
           sh run_daily.sh
 
       - name: run calendar bot biweekly
-        if: github.event.schedule == '30 8 * * *'
+        #if: github.event.schedule == '30 8 * * *'
         run: |
           sh run_biweekly.sh
