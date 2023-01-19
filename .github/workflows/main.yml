@@ -25,7 +25,3 @@ jobs:
       - name: run birtday bot daily 
         run: |
           sh run_daily.sh
-
-          with:
-            user: __token__
-            SLACK_BOT_TOKEN = ${{ secrets.SLACK_BOT_TOKEN }}
