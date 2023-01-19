@@ -17,8 +17,9 @@ if __name__ == '__main__':
     channel_id="C04KGDHATRA"
 
     # get birthdays from SCAN calendar
-    C = CalendarEvents()
-    birthdays = C.get_birthdays()
+    #C = CalendarEvents()
+    #birthdays = C.get_birthdays()
+    birthdays = "test"
 
     # if none has birthday, exit
     if (len(birthdays) == 0):
