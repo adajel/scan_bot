@@ -1,0 +1,38 @@
+# Run calendar bot (Monday at 08:00 every other week) and birthday_bot (every day at 08:00)
+
+name: scan_bot_calendar
+
+on: 
+  workflow_dispatch:
+  schedule:
+  - cron: '30 12 1-7,15-21 * 1'
+
+jobs:
+  run-scan-bot:
+    runs-on: ubuntu-20.04
+
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      GOOGLE_API_REFRESH_TOKEN: ${{ secrets.GOOGLE_API_REFRESH_TOKEN }}
+      GOOGLE_API_CLIENT_ID: ${{ secrets.GOOGLE_API_CLIENT_ID }}
+      GOOGLE_API_CLIENT_SECRET: ${{ secrets.GOOGLE_API_CLIENT_SECRET }}
+
+      # Channel id test_bot_channel on Slack
+      CHANNEL_ID: "C04KGDHATRA"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: install build package
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip freeze
+
+      - name: run calendar bot biweekly
+        #if: github.event.schedule == '0 11,12 * * *'
+        run: |
+          sh run_calendar_bot.sh $CHANNEL_ID
