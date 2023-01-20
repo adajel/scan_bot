@@ -1,5 +1,5 @@
 from slack_sdk.web import WebClient
-from calendar_events import CalendarEvents
+from get_calendar_events import GetCalendarEvents
 
 import os
 import sys
@@ -15,7 +15,7 @@ if __name__ == '__main__':
         sys.exit(2)
 
     # get birthdays from SCAN calendar
-    C = CalendarEvents()
+    C = GetCalendarEvents()
     birthdays = C.get_birthdays()
 
     # if none has birthday, exit

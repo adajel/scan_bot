@@ -1,5 +1,5 @@
 from slack_sdk.web import WebClient
-from calendar_events import CalendarEvents
+from get_calendar_events import GetCalendarEvents
 
 import os
 import sys
@@ -41,7 +41,7 @@ class Message:
         #task_checkmark = self._get_checkmark(self.reaction_task_completed)
 
         # get calendar events to post
-        C = CalendarEvents()
+        C = GetCalendarEvents()
         calendar_events = C.get_events()
 
         text = (
