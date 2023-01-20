@@ -5,9 +5,14 @@ import os
 import sys
 
 if __name__ == '__main__':
+    """Create message and post to slack channel with given channel id"""
 
-    # set channel ID
-    channel_id="C04KGDHATRA"
+    try:
+        # set channel id
+        channel_id = sys.argv[1]
+    except:
+        print('Please provide channel_id as cmd line argumente: \n $ python app_calendar.py  <channel_id>')
+        sys.exit(2)
 
     # get birthdays from SCAN calendar
     C = CalendarEvents()

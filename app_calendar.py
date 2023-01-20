@@ -2,6 +2,7 @@ from slack_sdk.web import WebClient
 from calendar_events import CalendarEvents
 
 import os
+import sys
 
 class Message:
     """Constructs the text to be displayed"""
@@ -17,8 +18,8 @@ class Message:
     }
     DIVIDER_BLOCK = {"type": "divider"}
 
-    def __init__(self, channel):
-        self.channel = channel
+    def __init__(self, channel_id):
+        self.channel_id = channel_id
         self.username = "scanbot"
         self.icon_emoji = ":calendar:"
         self.reaction_task_completed = False
@@ -26,7 +27,7 @@ class Message:
 
     def get_message_payload(self):
         return {
-            "channel": self.channel,
+            "channel": self.channel_id,
             "username": self.username,
             "icon_emoji": self.icon_emoji,
             "blocks": [
@@ -47,7 +48,7 @@ class Message:
             calendar_events
         )
         information = (
-            "Add new events via the <https://tinyurl.com/5n8zn827|SCAN calendar>"
+            "Add new events via the <https://tinyurl.com/5n8zn827|SCAN calendar>."
         )
         return self._get_task_block(text, information)
 
@@ -59,11 +60,15 @@ class Message:
             {"type": "context", "elements": [{"type": "mrkdwn", "text": information}]},
         ]
 
-
 if __name__ == '__main__':
+    """Create message and post to slack channel with given channel id"""
 
-    # set channel_id
-    channel_id="C04KGDHATRA"
+    try:
+        # set channel id
+        channel_id = sys.argv[1]
+    except:
+        print('Please provide channel_id as cmd line argumente: \n $ python app_calendar.py  <channel_id>')
+        sys.exit(2)
 
     # we need to pass the 'Bot User OAuth Token'
     slack_token = os.environ['SLACK_BOT_TOKEN']

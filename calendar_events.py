@@ -1,22 +1,18 @@
 from __future__ import print_function
 
 import datetime
-import os.path
+from datetime import datetime as dt
+from dateutil.relativedelta import relativedelta
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 from dateutil.parser import parse as dtparse
 
-from datetime import datetime as dt
-from dateutil.relativedelta import relativedelta
-
 import re
 import os
-import sys
 
 # Specify calendar to SCAN google calendar
 calendar_id = 'simula.no_9ga7rtt02pjcntlok16886rpjk@group.calendar.google.com'
@@ -26,52 +22,34 @@ class CalendarEvents:
     def __init__(self):
         """ setup Google Calendar API. """
 
-        # generate directory with tokens etc for authorization
-        self.generate_token_file()
+        # directory with token info
+        self.get_token()
 
-        # get credentials from google API
-        self.creds = None
-        self.creds = Credentials.from_authorized_user_info(self.token)
-
-        """
-        # TODO: How to this without json files? seems like
-        # InstalledAppFlow has no function from_client_secrets_info()..
-        # If there are no (valid) credentials available, let the user log in.
-        if not self.creds or not self.creds.valid:
-            if self.creds and self.creds.expired and self.creds.refresh_token:
-                self.creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json')
-                self.creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            with open('token.json', 'w') as token:
-                token.write(self.creds.to_json())
-        """
+        # refresh google API tokens
+        self.creds = Credentials(**self.token)
+        self.creds.refresh(Request())
 
         return
 
-    def generate_token_file(self):
+    def get_token(self):
 
-        # get environmental variables
-        token = os.environ['GOOGLE_API_TOKEN']
+        # get secret token information (stored in environmental variables)
         refresh_token = os.environ['GOOGLE_API_REFRESH_TOKEN']
-        token_uri = os.environ['GOOGLE_API_TOKEN_URI']
         client_id = os.environ['GOOGLE_API_CLIENT_ID']
         client_secret = os.environ['GOOGLE_API_CLIENT_SECRET']
-        scopes = os.environ['GOOGLE_API_SCOPES']
-        expiry = os.environ['GOOGLE_API_EXPIRY']
 
-        # data to be written
-        token = {"token": token,
+        # public token information
+        token_uri = "https://oauth2.googleapis.com/token"
+        scopes = "https://www.googleapis.com/auth/calendar.readonly"
+
+        # dictionary for token info
+        token = {"token": None,
                  "refresh_token": refresh_token,
                  "token_uri": token_uri,
                  "client_id": client_id,
                  "client_secret": client_secret,
-                 "scopes": [scopes],
-                 "expiry": expiry}
+                 "scopes": [scopes]}
 
-        # serializing json
         self.token = token
 
         return
@@ -122,7 +100,7 @@ class CalendarEvents:
         try:
             service = build('calendar', 'v3', credentials=self.creds)
 
-            # set range for the next 12 months
+            # set range from today - in one year (12 months)
             start = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
             end = (datetime.datetime.utcnow() + relativedelta(months=12)).isoformat('T') + "Z"
 
@@ -134,7 +112,7 @@ class CalendarEvents:
 
             # if no events found, return
             if not events:
-                summary += 'No events found. Please help populate the SCAN calendar :face_with_cowboy_hat:'
+                summary += 'No events found. Please help populate the SCAN calendar :pray:'
                 return
 
             # Prints the start and name of the next 10 events
@@ -165,7 +143,7 @@ class CalendarEvents:
 
             # if the only events 
             if len(summary) == 0:
-                summary += 'No events found. Please help populate the SCAN calendar :face_with_cowboy_hat:'
+                summary += 'No events found. Please help populate the SCAN calendar :pray:'
 
             return summary
 
