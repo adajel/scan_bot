@@ -18,7 +18,9 @@ jobs:
       GOOGLE_API_CLIENT_SECRET: ${{ secrets.GOOGLE_API_CLIENT_SECRET }}
 
       # Channel id test_bot_channel on Slack
-      CHANNEL_ID: "C04KGDHATRA"
+      CHANNEL_ID: "C04L70MKXR7"
+      # Channel id #scan_department on Slack
+      # C8F6TDG82
 
     steps:
       - uses: actions/checkout@v2
