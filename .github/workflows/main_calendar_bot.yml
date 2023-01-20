@@ -33,6 +33,5 @@ jobs:
           pip freeze
 
       - name: run calendar bot biweekly
-        #if: github.event.schedule == '0 11,12 * * *'
         run: |
           sh run_calendar_bot.sh $CHANNEL_ID
