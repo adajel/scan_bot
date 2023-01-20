@@ -134,7 +134,7 @@ class CalendarEvents:
 
                 # exclude OiO, seminars, dept. meetings and birthdays
                 if not (oio_event or dept_meeting_event or birthday_event):
-                    summary += stime + ': ' + event['summary'] + '\n'
+                    summary += stime + ': ' + "<" + event['htmlLink'] + "|" + event['summary'] + ">" + "\n"
                     i += 1
 
                 # if all events found are OiO, seminars, dept. meetings or birthdays
