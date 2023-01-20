@@ -21,7 +21,7 @@ jobs:
       GOOGLE_API_CLIENT_SECRET: ${{ secrets.GOOGLE_API_CLIENT_SECRET }}
 
       # Channel id test_bot_channel on Slack
-      CHANNEL_ID: C04KGDHATRA
+      CHANNEL_ID: "C04KGDHATRA"
 
     steps:
       - uses: actions/checkout@v2
@@ -36,11 +36,11 @@ jobs:
           pip freeze
 
       - name: run birthday bot daily 
-        if: github.event.schedule == '15 9 * * *'
+        #if: github.event.schedule == '15 9 * * *'
         run: |
           sh run_daily.sh $CHANNEL_ID
 
       - name: run calendar bot biweekly
-        if: github.event.schedule == '0 11,12 * * *'
+        #if: github.event.schedule == '0 11,12 * * *'
         run: |
           sh run_biweekly.sh $CHANNEL_ID
