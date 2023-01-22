@@ -12,7 +12,7 @@ class Message:
         "text": {
             "type": "mrkdwn",
             "text": (
-            "Upcoming conferences and other relevant events from the SCAN calendar: \n\n"
+            "Upcoming conferences and other relevant events: \n\n"
             ),
         },
     }
@@ -38,8 +38,6 @@ class Message:
         }
 
     def _get_events_block(self):
-        #task_checkmark = self._get_checkmark(self.reaction_task_completed)
-
         # get calendar events to post
         C = GetCalendarEvents()
         calendar_events = C.get_events()
@@ -62,7 +60,6 @@ class Message:
 
 if __name__ == '__main__':
     """Create message and post to slack channel with given channel id"""
-
     try:
         # set channel id
         channel_id = sys.argv[1]
