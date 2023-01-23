@@ -86,10 +86,6 @@ class GetCalendarEvents:
                 if birthday_event:
                     summary.append(event['summary'] + '\n')
 
-            if len(summary) == 0:
-                print("No birthdays found today")
-                sys.exit(2)
-
             return summary
 
         except HttpError as error:

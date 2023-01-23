@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     # if none has birthday, exit
     if (len(birthdays) == 0):
-        sys.exit(0)
+       exit()
 
     # we need to pass the 'Bot User OAuth Token'
     slack_token = os.environ['SLACK_BOT_TOKEN']
