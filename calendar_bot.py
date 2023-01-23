@@ -12,7 +12,7 @@ class Message:
         "text": {
             "type": "mrkdwn",
             "text": (
-            "Upcoming conferences and other relevant events: \n\n"
+            "Upcoming conferences and other relevant events from the SCAN calendar: \n\n"
             ),
         },
     }
