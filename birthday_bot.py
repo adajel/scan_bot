@@ -31,8 +31,12 @@ if __name__ == '__main__':
 
     # post birthday greeting(s) on Slack
     for email in emails:
-        # get slack user name
-        user_name = client.users_lookupByEmail(email=email)['user']['name']
+        try:
+            # get slack user name
+            user_name = client.users_lookupByEmail(email=email)['user']['name']
+        except:
+            print('User name not found')
+            continue
 
         # construct and post message
         message = "Happy birthday, <@" + user_name + ">! :tada: \n"
