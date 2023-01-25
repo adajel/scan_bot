@@ -39,7 +39,7 @@ if __name__ == '__main__':
             continue
 
         # construct and post message
-        message = "Happy birthday, <@" + user_name + ">! :tada: \n"
+        message = "Happy birthday, <@" + user_name + ">! :balloon: \n"
         response = client.chat_postMessage(channel=channel_id,
                                        username="scanbot",
                                        icon_emoji=":robot_face:",
