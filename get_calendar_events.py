@@ -82,9 +82,14 @@ class GetCalendarEvents:
                 # check id event is birthday
                 birthday_event = bool(re.search('birthday', event['summary']))
 
-                # exclude OiO, seminars, dept. meetings and birthdays
                 if birthday_event:
-                    summary.append(event['summary'] + '\n')
+                    # get event description (must contain email address!)
+                    event_description = event.get('description').strip()
+                    # extract email address from description
+                    match = re.search(r'[\w.+-]+@[\w-]+\.[\w.-]+', event_description)
+                    email = match.group(0)
+                    # return email
+                    summary.append(email)
 
             return summary
 
@@ -139,7 +144,7 @@ class GetCalendarEvents:
                     i += 1
 
                 # if all events found are OiO, seminars, dept. meetings or birthdays
-                if i >= 10:
+                if i >= 15:
                     return summary
 
             # if the only events 

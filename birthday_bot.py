@@ -3,6 +3,7 @@ from get_calendar_events import GetCalendarEvents
 
 import os
 import sys
+import re
 
 if __name__ == '__main__':
     """Create message and post to slack channel with given channel id"""
@@ -14,12 +15,12 @@ if __name__ == '__main__':
         print('Please provide channel_id as cmd line argumente: \n $ python app_calendar.py  <channel_id>')
         sys.exit(2)
 
-    # get birthdays from SCAN calendar
+    # get email addresses of those who have birthday today
     C = GetCalendarEvents()
-    birthdays = C.get_birthdays()
+    emails = C.get_birthdays()
 
-    # if none has birthday, exit
-    if (len(birthdays) == 0):
+    # exit if no one has birthday
+    if (len(emails) == 0):
        exit()
 
     # we need to pass the 'Bot User OAuth Token'
@@ -29,8 +30,13 @@ if __name__ == '__main__':
     client = WebClient(token=slack_token)
 
     # post birthday greeting(s) on Slack
-    for birthday in birthdays:
+    for email in emails:
+        # get slack user name
+        user_name = client.users_lookupByEmail(email=email)['user']['name']
+
+        # construct and post message
+        message = "Happy birthday, <@" + user_name + ">! :tada: \n"
         response = client.chat_postMessage(channel=channel_id,
                                        username="scanbot",
                                        icon_emoji=":robot_face:",
-                                       text=birthday)
+                                       text=message)
