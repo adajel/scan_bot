@@ -5,7 +5,7 @@ name: scan_bot_birthday
 on:
   workflow_dispatch:
   schedule:
-  - cron: '17 6 * * *'
+  - cron: '17 4 * * *'
 
 jobs:
   run-scan-bot:
