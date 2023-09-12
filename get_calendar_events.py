@@ -126,7 +126,7 @@ class GetCalendarEvents:
 
                 start = event['start'].get('dateTime', event['start'].get('date'))
                 # gives date format '26 Dec 2022'
-                tmfmt = '%d.%m.%y'
+                tmfmt = '%d.%m.%Y'
 
                 # make date format look pretty
                 stime = dt.strftime(dtparse(start), format=tmfmt)
