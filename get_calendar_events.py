@@ -137,9 +137,11 @@ class GetCalendarEvents:
                 dept_meeting_event = bool(re.search('SCAN weekly', event['summary']))
                 # check id event is birthday
                 birthday_event = bool(re.search('birthday', event['summary']))
+                # check if event in coffe and theorems session
+                coffee_and_theorems_event = bool(re.search('Coffee and Theorems', event['summary']))
 
                 # exclude OiO, seminars, dept. meetings and birthdays
-                if not (oio_event or dept_meeting_event or birthday_event):
+                if not (oio_event or dept_meeting_event or birthday_event or coffee_and_theorems_event):
                     summary += stime + ': ' + "<" + event['htmlLink'] + "|" + event['summary'] + ">" + "\n"
                     i += 1
 
