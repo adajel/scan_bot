@@ -2,14 +2,14 @@
 
 name: scan_bot_calendar
 
-on: 
+on:
   workflow_dispatch:
   schedule:
-  - cron: '39 12 * * 1'
+    - cron: "39 12 * * 1"
 
 jobs:
   run-scan-bot:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -23,17 +23,16 @@ jobs:
       CHANNEL_ID: "C8F6TDG82"
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.12
 
       - name: install build package
         run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip freeze
+          python -m pip install --upgrade pip
+          python -m pip install -e .
 
       - name: run calendar bot biweekly
         run: |
-          sh run_calendar_bot.sh $CHANNEL_ID
+          python calendar.py $CHANNEL_ID
