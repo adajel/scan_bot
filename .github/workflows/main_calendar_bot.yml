@@ -35,4 +35,4 @@ jobs:
 
       - name: run calendar bot biweekly
         run: |
-          python calendar.py $CHANNEL_ID
+          python calendar_bot.py $CHANNEL_ID
