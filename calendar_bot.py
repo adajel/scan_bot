@@ -43,10 +43,10 @@ class Message:
         calendar_events = C.get_events()
 
         text = (
-            "" # calendar_events
+            calendar_events
         )
         information = (
-            "" # "Add new events via the <https://tinyurl.com/5n8zn827|SCAN calendar>."
+            "y" # "Add new events via the <https://tinyurl.com/5n8zn827|SCAN calendar>."
         )
         return self._get_task_block(text, information)
 
