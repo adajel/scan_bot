@@ -46,8 +46,7 @@ class Message:
             calendar_events
         )
         information = (
-            # "Add new events via the <https://tinyurl.com/5n8zn827|SCAN calendar>."
-            "Add new events via the <https://calendar.google.com/calendar/u/0?cid=c2ltdWxhLm5vXzlnYTdydHQwMnBqY250bG9rMTY4ODZycGprQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20|SCAN calendar>."
+            "Add new events via the <https://tinyurl.com/5n8zn827|SCAN calendar>."
         )
         return self._get_task_block(text, information)
 
