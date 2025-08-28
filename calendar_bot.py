@@ -30,6 +30,8 @@ class Message:
             "channel": self.channel_id,
             "username": self.username,
             "icon_emoji": self.icon_emoji,
+            "unfurl_links": False,
+	        "unfurl_media": False,
             "blocks": [
                 self.TITLE_BLOCK,
                 self.DIVIDER_BLOCK,
