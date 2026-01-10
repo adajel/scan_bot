@@ -23,7 +23,7 @@ jobs:
       CHANNEL_ID: "C8F6TDG82"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-python@v5
         with:
           python-version: 3.12
