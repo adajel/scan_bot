@@ -131,23 +131,19 @@ class GetCalendarEvents:
                 # make date format look pretty
                 stime = dt.strftime(dtparse(start), format=tmfmt)
 
-                # check id event is optimization in Oslo seminar
-                oio_event = bool(re.search('OiO', event['summary']))
-                # check id event is SCAN department meeting
+                # check if event is SCAN department meeting
                 dept_meeting_event = bool(re.search('SCAN weekly', event['summary']))
-                # check id event is birthday
+                # check if event is birthday
                 birthday_event = bool(re.search('birthday', event['summary']))
-                # check if event is coffe and theorems session
-                coffee_and_theorems_event = bool(re.search('Coffee and Theorems', event['summary']))
                 # check if event is SCAN tea
                 SCAN_tea_event = bool(re.search('SCAN(tea)', event['summary']))
 
-                # exclude OiO, seminars, dept. meetings and birthdays
-                if not (oio_event or dept_meeting_event or birthday_event or coffee_and_theorems_event or SCAN_tea_event):
+                # exclude dept. meetings, birthdays, and SCAN teas
+                if not (dept_meeting_event or birthday_event or SCAN_tea_event):
                     summary += stime + ': ' + "<" + event['htmlLink'] + "|" + event['summary'] + ">" + "\n"
                     i += 1
 
-                # if all events found are OiO, seminars, dept. meetings or birthdays
+                # if all events found are seminars, dept. meetings or birthdays
                 if i >= 15:
                     return summary
 
