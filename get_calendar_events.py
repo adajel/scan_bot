@@ -136,7 +136,7 @@ class GetCalendarEvents:
                 # check if event is birthday
                 birthday_event = bool(re.search('birthday', event['summary']))
                 # check if event is SCAN tea
-                SCAN_tea_event = bool(re.search('SCAN(tea)', event['summary']))
+                SCAN_tea_event = bool(re.search('tea', event['summary']))
 
                 # exclude dept. meetings, birthdays, and SCAN teas
                 if not (dept_meeting_event or birthday_event or SCAN_tea_event):
